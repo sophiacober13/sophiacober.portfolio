@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sophia Gober — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=EB+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --terra: #8B3A1A;
+    --black: #0A0806;
+    --off-black: #111009;
+    --surface: #161310;
+    --text: #EDE5D0;
+    --text-muted: #8C7E65;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GREEK KEY BORDER UTILITY */
+  .key-border-top {
+    width: 100%;
+    height: 12px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--gold) 0px, var(--gold) 2px,
+      transparent 2px, transparent 8px,
+      var(--gold) 8px, var(--gold) 10px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      var(--gold) 0px, var(--gold) 2px,
+      transparent 2px, transparent 8px,
+      var(--gold) 8px, var(--gold) 10px
+    );
+    background-size: 40px 12px, 12px 12px;
+    opacity: 0.6;
+  }
+
+  /* MEANDER SVG DIVIDER */
+  .meander {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,8,6,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+  }
+
+  .nav-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(139,58,26,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* CUSTOM ALPHABET PLACEHOLDER STRIP */
+  .alphabet-strip {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    opacity: 0.35;
+    align-items: center;
+  }
+
+  .glyph-slot {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--gold);
+    /* REPLACE THESE with <img> tags of your custom alphabet glyphs */
+    font-family: 'Cinzel', serif;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+
+  .hero-title .name-first {
+    display: block;
+    font-size: clamp(4rem, 12vw, 10rem);
+    color: var(--gold);
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+    margin-bottom: -0.45em;
+  }
+
+  .hero-title .name-last {
+    display: block;
+    font-size: clamp(4.5rem, 13vw, 11rem);
+    color: var(--text);
+    position: relative;
+    z-index: 2;
+    margin-left: 0.1em;
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 700;
+    font-style: italic;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* LARGE DECORATIVE TEXT */
+  .hero-deco {
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(6rem, 18vw, 16rem);
+    font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* SECTION SHARED */
+  section {
+    padding: 6rem 3rem;
+    position: relative;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* WORK GRID */
+  #work { background: var(--off-black); }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .work-card {
+    position: relative;
+    aspect-ratio: 4/3;
+    background: var(--surface);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(201,168,76,0.08);
+  }
+
+  /* Placeholder — replace background-color with background-image: url('images/yourphoto.jpg') */
+  .work-card.gd    { background-color: #1a1208; }
+  .work-card.photo { background-color: #0e1218; }
+  .work-card.video { background-color: #120e18; }
+
+  .work-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,8,6,0.9) 0%, transparent 60%);
+    transition: opacity 0.3s;
+  }
+
+  .work-card:hover::after { opacity: 0.5; }
+
+  .work-card-img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    opacity: 0.4;
+    /* DELETE this div once you add real background images */
+  }
+
+  .work-card-body {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem;
+  }
+
+  .work-card-cat {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .work-card-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  /* ABOUT */
+  #about { background: var(--black); }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-image-frame {
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+    /* Add background-image: url('images/portrait.jpg') here */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
+  /* Greek key corner decoration */
+  .about-image-frame::before,
+  .about-image-frame::after {
+    content: '';
+    position: absolute;
+    width: 30px; height: 30px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .about-image-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .about-image-frame::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+  .about-text h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .skill-tag {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.9rem;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--off-black); text-align: center; }
+
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+
+  .contact-inner p {
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.9;
+  }
+
+  .contact-email {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+
+  .contact-email:hover { color: var(--gold-light); }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .social-links a {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .social-links a:hover { color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-name">Sophia Gober</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-deco" aria-hidden="true">SOPHIA</div>
+
+  <!-- CUSTOM ALPHABET STRIP -->
+  <!-- Replace each .glyph-slot with <img src="images/glyph-X.png" alt="" width="32" height="32"> once you have your alphabet exported -->
+  <div class="alphabet-strip" aria-hidden="true">
+    <div class="glyph-slot">✦</div>
+    <div class="glyph-slot">◈</div>
+    <div class="glyph-slot">⟁</div>
+    <div class="glyph-slot">⌖</div>
+    <div class="glyph-slot">✦</div>
+    <div class="glyph-slot">◈</div>
+    <div class="glyph-slot">⟁</div>
+  </div>
+
+  <p class="hero-eyebrow">GBDA · University of Waterloo · 2026</p>
+  <h1 class="hero-title">
+    <span class="name-first">Sophia</span>
+    <span class="name-last">Cober</span>
+  </h1>
+  <p class="hero-subtitle">Graphic design, photography &amp; video</p>
+  <p class="hero-desc">
+    A portfolio at the intersection of ancient visual language and contemporary design. 
+    Work that draws on the weight of myth and the clarity of form.
+  </p>
+  <a href="#work" class="hero-cta">View the work</a>
+</section>
+
+<!-- MEANDER DIVIDER -->
+<div class="meander" aria-hidden="true">
+  <svg width="100%" height="16" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <pattern id="meander" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse">
+        <path d="M0,8 L4,8 L4,4 L12,4 L12,12 L20,12 L20,4 L28,4 L28,8 L32,8 L32,4 L40,4" 
+              fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="16" fill="url(#meander)"/>
+  </svg>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header">
+    <span class="section-num">I</span>
+    <h2 class="section-title">Selected Work</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="work-grid">
+
+    <!-- CARD 1 — replace background-color with background-image in CSS or inline style -->
+    <div class="work-card gd">
+      <div class="work-card-img-placeholder">Add image — graphic-design-01.jpg</div>
+      <div class="work-card-body">
+        <p class="work-card-cat">Graphic Design</p>
+        <p class="work-card-title">Project title here</p>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="work-card photo">
+      <div class="work-card-img-placeholder">Add image — photography-01.jpg</div>
+      <div class="work-card-body">
+        <p class="work-card-cat">Photography</p>
+        <p class="work-card-title">Project title here</p>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="work-card video">
+      <div class="work-card-img-placeholder">Add image — video-01.jpg</div>
+      <div class="work-card-body">
+        <p class="work-card-cat">Video</p>
+        <p class="work-card-title">Project title here</p>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="work-card gd">
+      <div class="work-card-img-placeholder">Add image — graphic-design-02.jpg</div>
+      <div class="work-card-body">
+        <p class="work-card-cat">Graphic Design</p>
+        <p class="work-card-title">Project title here</p>
+      </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="work-card photo">
+      <div class="work-card-img-placeholder">Add image — photography-02.jpg</div>
+      <div class="work-card-body">
+        <p class="work-card-cat">Photography</p>
+        <p class="work-card-title">Project title here</p>
+      </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="work-card video">
+      <div class="work-card-img-placeholder">Add image — video-02.jpg</div>
+      <div class="work-card-body">
+        <p class="work-card-cat">Video</p>
+        <p class="work-card-title">Project title here</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MEANDER DIVIDER -->
+<div class="meander" aria-hidden="true">
+  <svg width="100%" height="16" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <pattern id="meander2" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse">
+        <path d="M0,8 L4,8 L4,4 L12,4 L12,12 L20,12 L20,4 L28,4 L28,8 L32,8 L32,4 L40,4" 
+              fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="16" fill="url(#meander2)"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">II</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="about-inner">
+    <div class="about-image-frame">
+      <!-- Replace this div content with: <img src="images/portrait.jpg" alt="Sophia Gober" style="width:100%;height:100%;object-fit:cover;"> -->
+      <span style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--text-muted);">Your portrait here</span>
+    </div>
+
+    <div class="about-text">
+      <h3>The maker</h3>
+      <p>
+        <strong>Sophia Gober</strong> is a second-year Global Business and Digital Arts student 
+        at the University of Waterloo, working at the intersection of ancient visual language, 
+        contemporary design, and digital storytelling.
+      </p>
+      <p>
+        <!-- Write your own bio here — keep it personal and specific to you -->
+        My work draws from the visual cultures of ancient Greece and Rome — the weight of black-figure 
+        pottery, the geometry of classical friezes — translated into graphic design, photography, 
+        and video for the present moment.
+      </p>
+      <p>
+        Currently open to internships, freelance projects, and creative collaborations.
+      </p>
+
+      <div class="skills-list">
+        <span class="skill-tag">Graphic Design</span>
+        <span class="skill-tag">Photography</span>
+        <span class="skill-tag">Video Production</span>
+        <span class="skill-tag">Adobe CC</span>
+        <span class="skill-tag">Typography</span>
+        <span class="skill-tag">Branding</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header" style="justify-content:center; text-align:center;">
+    <span class="section-num">III</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="contact-inner">
+    <p>
+      Whether you have a project in mind, want to collaborate, or just want to talk 
+      about ancient visual culture and contemporary design — I'd love to hear from you.
+    </p>
+
+    <!-- Replace with your actual email -->
+    <a href="mailto:your@email.com" class="contact-email">your@email.com</a>
+
+    <ul class="social-links">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Behance</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Sophia Gober</p>
+  <p>GBDA · University of Waterloo</p>
+</footer>
+
+</body>
+</html>
