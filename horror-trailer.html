@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Horror Trailer — Sophia Cober</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .video-stage {
+    max-width: 900px;
+    margin: 1rem auto 5rem;
+    padding: 0 2rem;
+  }
+  .video-frame {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .video-frame video { width: 100%; height: 100%; object-fit: cover; }
+  .play-badge {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,8,6,0.25);
+    transition: background 0.2s;
+  }
+  .video-frame:hover .play-badge { background: rgba(10,8,6,0.45); }
+  .play-circle {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: rgba(10,8,6,0.75);
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1.5rem;
+  }
+  .video-hint {
+    text-align: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="../index.html#work">&larr; Back to Portfolio</a>
+</nav>
+
+<header class="project-header">
+  <p class="project-cat">Video</p>
+  <h1 class="project-title">Not Alone Trailer</h1>
+  <!-- EDIT YOUR DESCRIPTION HERE -->
+  <p class="project-desc is-placeholder" id="projectDesc">
+    As an aspiring media productionist, a huge part for me is video production. With the help of peers I created
+    a horror version of Home Alone to give a slight twist to the favoured film. I was responsible for audio recording, screen writing and the haunting
+    sound track in the background. I wanted to make the audience feel at first it was just another Christmas film with the classic "Rockin' Around the Christmas Tree"
+    song to build the tension as it took a dark turn.</p>
+</header>
+
+<div class="video-stage">
+  <div class="video-frame" id="videoFrame">
+    <video id="previewVideo" muted playsinline>
+      <source src="../videos/Horror Trailer.mp4" type="video/mp4">
+    </video>
+    <div class="play-badge"><div class="play-circle">&#9658;</div></div>
+  </div>
+  <p class="video-hint">Click to play full screen</p>
+</div>
+
+<!-- FULLSCREEN OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-inner">
+    <div class="overlay-media-wrap" id="mediaWrap" style="aspect-ratio:16/9; width:100%;">
+      <button class="overlay-close" id="closeBtn" aria-label="Close">&times;</button>
+      <video id="fullVideo" controls autoplay style="width:100%; height:100%;">
+        <source src="../videos/Horror Trailer.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
+<script>
+  const frame = document.getElementById('videoFrame');
+  const overlay = document.getElementById('overlay');
+  const fullVideo = document.getElementById('fullVideo');
+  const previewVideo = document.getElementById('previewVideo');
+
+  frame.addEventListener('click', () => {
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    fullVideo.currentTime = 0;
+    fullVideo.play();
+  });
+
+  function closeOverlay() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+    fullVideo.pause();
+  }
+
+  document.getElementById('closeBtn').addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeOverlay();
+  });
+
+  // Graceful fallback if the video file isn't uploaded yet
+  previewVideo.addEventListener('error', () => {
+    frame.innerHTML = '<div class="placeholder-block">Add file — videos/Athletics Promotion.mp4</div>';
+  });
+</script>
+
+</body>
+</html>

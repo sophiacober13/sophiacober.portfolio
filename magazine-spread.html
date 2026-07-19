@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Illumination Magazine Spread — Sophia Cober</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .reader {
+    max-width: 1000px;
+    margin: 1rem auto 2rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .reader-stage {
+    position: relative;
+    display: flex;
+    gap: 2px;
+    background: var(--off-black);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    min-height: 320px;
+    align-items: stretch;
+  }
+  .reader-page {
+    width: 320px;
+    max-width: 40vw;
+    display: block;
+  }
+  .reader-page img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #fff;
+  }
+  .reader-btn {
+    background: rgba(10,8,6,0.7);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+  }
+  .reader-btn:hover { background: var(--gold); color: var(--black); }
+  .reader-btn:disabled { opacity: 0.3; cursor: default; }
+  .reader-btn:disabled:hover { background: rgba(10,8,6,0.7); color: var(--gold); }
+
+  .page-counter {
+    text-align: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .reader-page.clickable { cursor: zoom-in; }
+
+  @media (max-width: 800px) {
+    .reader-page { width: 80vw; max-width: 80vw; }
+    .reader-stage { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="../index.html#work">&larr; Back to Portfolio</a>
+</nav>
+
+<header class="project-header">
+  <p class="project-cat">Graphic Design</p>
+  <h1 class="project-title">Illumination Magazine Spread</h1>
+  <!-- EDIT YOUR DESCRIPTION HERE -->
+  <p class="project-desc is-placeholder" id="projectDesc"> the concept for the magazine, the course context, and your role in the layout and writing.</p>
+</header>
+
+<div class="reader">
+  <button class="reader-btn" id="prevBtn" aria-label="Previous spread">&#8249;</button>
+  <div class="reader-stage" id="stage"></div>
+  <button class="reader-btn" id="nextBtn" aria-label="Next spread">&#8250;</button>
+</div>
+<p class="page-counter" id="pageCounter"></p>
+
+<!-- ZOOM OVERLAY for reading a page up close -->
+<div class="overlay" id="overlay">
+  <div class="overlay-inner">
+    <div class="overlay-media-wrap" id="mediaWrap">
+      <button class="overlay-close" id="closeBtn" aria-label="Close">&times;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // All 8 magazine pages in order
+  const pages = [
+    "../images/magazine-01.jpg",
+    "../images/magazine-02.jpg",
+    "../images/magazine-03.jpg",
+    "../images/magazine-04.jpg",
+    "../images/magazine-05.jpg",
+    "../images/magazine-06.jpg",
+    "../images/magazine-07.jpg",
+    "../images/magazine-08.jpg"
+  ];
+
+  // Spreads: cover alone, then pairs, back page alone
+  const spreads = [[0], [1,2], [3,4], [5,6], [7]];
+  let current = 0;
+
+  const stage = document.getElementById('stage');
+  const counter = document.getElementById('pageCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function renderSpread() {
+    stage.innerHTML = '';
+    const spread = spreads[current];
+    spread.forEach(pageIndex => {
+      const pageDiv = document.createElement('div');
+      pageDiv.className = 'reader-page clickable';
+      const img = document.createElement('img');
+      img.src = pages[pageIndex];
+      img.alt = 'Magazine page ' + (pageIndex + 1);
+      pageDiv.appendChild(img);
+      pageDiv.addEventListener('click', () => openZoom(pageIndex));
+      stage.appendChild(pageDiv);
+    });
+
+    const first = spread[0] + 1;
+    const last = spread[spread.length - 1] + 1;
+    counter.textContent = (first === last ? 'Page ' + first : 'Pages ' + first + '\u2013' + last) + ' of ' + pages.length;
+
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === spreads.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => { if (current > 0) { current--; renderSpread(); } });
+  nextBtn.addEventListener('click', () => { if (current < spreads.length - 1) { current++; renderSpread(); } });
+  document.addEventListener('keydown', (e) => {
+    if (overlay.classList.contains('is-open')) return;
+    if (e.key === 'ArrowRight' && current < spreads.length - 1) { current++; renderSpread(); }
+    if (e.key === 'ArrowLeft' && current > 0) { current--; renderSpread(); }
+  });
+
+  // Zoom overlay for reading a single page up close
+  const overlay = document.getElementById('overlay');
+  const mediaWrap = document.getElementById('mediaWrap');
+
+  function openZoom(pageIndex) {
+    mediaWrap.querySelectorAll('img').forEach(el => el.remove());
+    const img = document.createElement('img');
+    img.src = pages[pageIndex];
+    img.onload = () => { mediaWrap.style.aspectRatio = img.naturalWidth + '/' + img.naturalHeight; };
+    mediaWrap.appendChild(img);
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOverlay() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('closeBtn').addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
+
+  renderSpread();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+/* ============================================================
+   SHARED STYLES for /work/ detail pages
+   Matches the design tokens from the main index.html
+   ============================================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --black: #0A0806;
+  --off-black: #111009;
+  --surface: #161310;
+  --text: #EDE5D0;
+  --text-muted: #8C7E65;
+  --border: rgba(201,168,76,0.25);
+}
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'EB Garamond', Georgia, serif;
+  min-height: 100vh;
+}
+
+/* BACK NAV */
+.back-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  background: rgba(10,8,6,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.back-nav a {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+}
+
+.back-nav a:hover { color: var(--gold-light); }
+
+/* PROJECT HEADER */
+.project-header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+}
+
+.project-cat {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.project-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 5vw, 2.75rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+
+/* ------------------------------------------------------------
+   EDIT YOUR DESCRIPTION HERE
+   Each page has a <p class="project-desc" id="projectDesc">
+   Just replace the placeholder sentence inside it with your
+   own text — that's the only edit needed to add a description.
+------------------------------------------------------------- */
+.project-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.project-desc.is-placeholder { font-style: italic; opacity: 0.6; }
+
+/* LIGHTBOX / FULLSCREEN OVERLAY (shared by photo grid, dr martens zoom, video expand) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10,8,6,0.97);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.overlay.is-open { display: flex; }
+
+.overlay-inner {
+  max-width: 1100px;
+  width: 100%;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.overlay-media-wrap {
+  position: relative;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.overlay-media-wrap img,
+.overlay-media-wrap video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 86vh;
+  object-fit: contain;
+}
+
+.overlay-close,
+.overlay-prev,
+.overlay-next {
+  position: absolute;
+  background: rgba(10,8,6,0.7);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-family: 'Playfair Display', Georgia, serif;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.2s, color 0.2s;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-close:hover,
+.overlay-prev:hover,
+.overlay-next:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.overlay-close {
+  top: -3rem;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.overlay-prev, .overlay-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.2rem;
+}
+
+.overlay-prev { left: -1rem; }
+.overlay-next { right: -1rem; }
+
+.overlay-counter {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+@media (max-width: 700px) {
+  .overlay-prev { left: 0.25rem; }
+  .overlay-next { right: 0.25rem; }
+  .overlay-close { top: 0.5rem; right: 0.5rem; background: rgba(10,8,6,0.9); }
+}
+
+.placeholder-block {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4rem 2rem;
+  border: 1px dashed var(--border);
+}

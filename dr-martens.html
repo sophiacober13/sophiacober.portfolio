@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Martens Icon Set — Sophia Cober</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .side-by-side {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .sbs-item {
+    cursor: zoom-in;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .sbs-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .sbs-item:hover img { transform: scale(1.04); }
+  @media (max-width: 800px) {
+    .side-by-side { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="../index.html#work">&larr; Back to Portfolio</a>
+</nav>
+
+<header class="project-header">
+  <p class="project-cat">Graphic Design</p>
+  <h1 class="project-title">Dr. Martens Icon Set</h1>
+  <!-- EDIT YOUR DESCRIPTION HERE -->
+  <p class="project-desc is-placeholder" id="projectDesc"> An icon set meant to be recongnizable as the shoe brand Dr. Martens (School project Not
+    affiliated). The colours were to evoke the boldness of the company and each position of the shoe was meant to capture the personality of the shoe.
+    Each shoe was drawn from a real one in my personal collection and the numebrs are the model numbers used in the store.</p>
+</header>
+
+<div class="side-by-side" id="sideBySide">
+  <!-- Images load in from the list below -->
+</div>
+
+<!-- ZOOM OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-inner">
+    <div class="overlay-media-wrap" id="mediaWrap">
+      <button class="overlay-close" id="closeBtn" aria-label="Close">&times;</button>
+      <button class="overlay-prev" id="prevBtn" aria-label="Previous">&#8249;</button>
+      <button class="overlay-next" id="nextBtn" aria-label="Next">&#8250;</button>
+    </div>
+    <p class="overlay-counter" id="counter"></p>
+  </div>
+</div>
+
+<script>
+  const images = [
+    "../images/dr-martens-2976.jpg",
+    "../images/dr-martens-1460.jpg",
+    "../images/dr-martens-8065.jpg"
+  ];
+
+  const wrap = document.getElementById('sideBySide');
+  images.forEach((src, i) => {
+    const item = document.createElement('div');
+    item.className = 'sbs-item';
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Dr. Martens icon ' + (i + 1);
+    item.appendChild(img);
+    item.addEventListener('click', () => openOverlay(i));
+    wrap.appendChild(item);
+  });
+
+  let current = 0;
+  const overlay = document.getElementById('overlay');
+  const mediaWrap = document.getElementById('mediaWrap');
+  const counter = document.getElementById('counter');
+
+  function render() {
+    mediaWrap.querySelectorAll('img').forEach(el => el.remove());
+    const img = document.createElement('img');
+    img.src = images[current];
+    img.onload = () => { mediaWrap.style.aspectRatio = img.naturalWidth + '/' + img.naturalHeight; };
+    mediaWrap.appendChild(img);
+    counter.textContent = (current + 1) + ' / ' + images.length;
+  }
+
+  function openOverlay(i) {
+    current = i;
+    render();
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOverlay() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('closeBtn').addEventListener('click', closeOverlay);
+  document.getElementById('nextBtn').addEventListener('click', (e) => { e.stopPropagation(); current = (current + 1) % images.length; render(); });
+  document.getElementById('prevBtn').addEventListener('click', (e) => { e.stopPropagation(); current = (current - 1 + images.length) % images.length; render(); });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeOverlay();
+    if (e.key === 'ArrowRight') { current = (current + 1) % images.length; render(); }
+    if (e.key === 'ArrowLeft') { current = (current - 1 + images.length) % images.length; render(); }
+  });
+</script>
+
+</body>
+</html>

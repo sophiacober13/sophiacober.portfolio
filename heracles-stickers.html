@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Labours of Heracles Stickers — Sophia Cober</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .single-stage {
+    max-width: 900px;
+    margin: 1rem auto 5rem;
+    padding: 0 2rem;
+  }
+  .single-media-wrap {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    cursor: zoom-in;
+  }
+  .single-media-wrap img { width: 100%; display: block; }
+  .single-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .single-nav button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  .single-nav button:hover { background: var(--gold); color: var(--black); }
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a href="../index.html#work">&larr; Back to Portfolio</a>
+</nav>
+
+<header class="project-header">
+  <p class="project-cat">Graphic Design</p>
+  <h1 class="project-title">Labours of Heracles Stickers</h1>
+  <!-- EDIT YOUR DESCRIPTION HERE -->
+  <p class="project-desc is-placeholder" id="projectDesc">
+    In my mind Heracles always appeared as a strong hero that was infallible. But what if he was really
+    someone just trying to get along in life but kept running into trouble? I created a comical sticker set 
+    to find a way to express my passion for greek mythology and something people can relate to with humour. 
+    I drew the original sketches by hand and then placed them into illustrator. I stuck with a straight lined
+    jagged approach to keep a similar style among all fo them.</p>
+</header>
+
+<div class="single-stage">
+  <div class="single-media-wrap" id="mediaWrap"></div>
+  <div class="single-nav" id="singleNav" style="display:none;">
+    <button id="prevBtn" aria-label="Previous">&#8249;</button>
+    <button id="nextBtn" aria-label="Next">&#8250;</button>
+  </div>
+</div>
+
+<!-- ZOOM OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-inner">
+    <div class="overlay-media-wrap" id="overlayMediaWrap">
+      <button class="overlay-close" id="closeBtn" aria-label="Close">&times;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const images = [
+    "../images/heracles-stickers-01.jpg"
+  ];
+
+  let current = 0;
+  const mediaWrap = document.getElementById('mediaWrap');
+  const nav = document.getElementById('singleNav');
+
+  function render() {
+    mediaWrap.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = images[current];
+    img.alt = 'Labours of Heracles Stickers ' + (current + 1);
+    img.onerror = () => { mediaWrap.innerHTML = '<div class="placeholder-block">Add file — ' + images[current].replace('../','') + '</div>'; };
+    img.addEventListener('click', openZoom);
+    mediaWrap.appendChild(img);
+    if (images.length > 1) nav.style.display = 'flex';
+  }
+
+  function openZoom() {
+    const overlayWrap = document.getElementById('overlayMediaWrap');
+    overlayWrap.querySelectorAll('img').forEach(el => el.remove());
+    const img = document.createElement('img');
+    img.src = images[current];
+    overlayWrap.appendChild(img);
+    document.getElementById('overlay').classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('closeBtn').addEventListener('click', () => {
+    document.getElementById('overlay').classList.remove('is-open');
+    document.body.style.overflow = '';
+  });
+  document.getElementById('overlay').addEventListener('click', (e) => {
+    if (e.target.id === 'overlay') { e.currentTarget.classList.remove('is-open'); document.body.style.overflow = ''; }
+  });
+
+  document.getElementById('prevBtn').addEventListener('click', () => { current = (current - 1 + images.length) % images.length; render(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { current = (current + 1) % images.length; render(); });
+
+  render();
+</script>
+
+</body>
+</html>
