@@ -103,13 +103,18 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 3rem 4rem;
-    position: relative;
-    overflow: hidden;
+
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 65px 3rem 0;
+
+  position: relative;
+
+  overflow: hidden;
   }
 
   .hero::before {
@@ -120,6 +125,141 @@
                 radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 50%);
     pointer-events: none;
   }
+
+  /* HERO INNER LAYOUT — text column + portrait square, side by side */
+  .hero-inner {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  min-height: calc(100vh - 65px);
+
+  position: relative;
+
+  z-index: 1;
+
+}
+
+.hero-text-col {
+
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 4rem 0;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+.hero-portrait-frame {
+
+  align-self: flex-start;
+
+  flex-shrink: 0;
+
+  width: min(48vw, 680px);
+
+  height: calc(100vh - 65px);
+
+  position: relative;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  background: transparent;
+
+  border: none;
+
+}
+
+.hero-portrait-frame::before,
+
+.hero-portrait-frame::after {
+
+  display: none;
+
+}
+
+.hero-portrait-frame img {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+
+  object-position: top center;
+
+}
+  .hero-portrait-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  @media (max-width: 900px) {
+
+  .hero {
+
+    padding: 65px 1.5rem 3rem;
+
+  }
+
+  .hero-inner {
+
+    flex-direction: column;
+
+    align-items: center;
+
+    min-height: auto;
+
+  }
+
+  .hero-text-col {
+
+    width: 100%;
+
+    padding: 4rem 0 1rem;
+
+  }
+
+  .hero-portrait-frame {
+
+    width: min(100%, 560px);
+
+    height: auto;
+
+    align-self: center;
+
+  }
+
+  .hero-portrait-frame img {
+
+    width: 100%;
+
+    height: auto;
+
+    object-fit: contain;
+
+  }
+
+}
 
   /* CUSTOM ALPHABET PLACEHOLDER STRIP */
   .alphabet-strip {
@@ -551,6 +691,12 @@
     font-size: 0.6rem;
     letter-spacing: 0.2em;
   }
+  .about-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
   /* Greek key corner decoration */
   .about-image-frame::before,
@@ -698,28 +844,42 @@
 <section class="hero" id="hero">
   <div class="hero-deco" aria-hidden="true">SOPHIA</div>
 
-  <!-- CUSTOM ALPHABET STRIP -->
-  <!-- Replace each .glyph-slot with <img src="images/glyph-X.png" alt="" width="32" height="32"> once you have your alphabet exported -->
-  <div class="alphabet-strip" aria-hidden="true">
-    <div class="glyph-slot">✦</div>
-    <div class="glyph-slot">◈</div>
-    <div class="glyph-slot">⟁</div>
-    <div class="glyph-slot">⌖</div>
-    <div class="glyph-slot">✦</div>
-    <div class="glyph-slot">◈</div>
-    <div class="glyph-slot">⟁</div>
-  </div>
+  <div class="hero-inner">
+    <div class="hero-text-col">
+      <!-- CUSTOM ALPHABET STRIP -->
+      <!-- Replace each .glyph-slot with <img src="images/glyph-X.png" alt="" width="32" height="32"> once you have your alphabet exported -->
+      <div class="alphabet-strip" aria-hidden="true">
+        <div class="glyph-slot">✦</div>
+        <div class="glyph-slot">◈</div>
+        <div class="glyph-slot">⟁</div>
+        <div class="glyph-slot">⌖</div>
+        <div class="glyph-slot">✦</div>
+        <div class="glyph-slot">◈</div>
+        <div class="glyph-slot">⟁</div>
+      </div>
 
-  <p class="hero-eyebrow">GBDA · University of Waterloo · 2026</p>
-  <h1 class="hero-title">
-    <span class="name-first">Sophia</span>
-    <span class="name-last">Cober</span>
-  </h1>
-  <p class="hero-subtitle">Graphic design, photography &amp; video</p>
-  <p class="hero-desc">
-    A portfolio of work reflecting inspiration of ancient civilizations and creativity.
-  </p>
-  <a href="#work" class="hero-cta">View the work</a>
+      <p class="hero-eyebrow">GBDA · University of Waterloo · 2026</p>
+      <h1 class="hero-title">
+        <span class="name-first">Sophia</span>
+        <span class="name-last">Cober</span>
+      </h1>
+      <p class="hero-subtitle">Graphic design, photography &amp; video</p>
+      <p class="hero-desc">
+        A portfolio of work reflecting inspiration of ancient civilizations, atheltics and human connection.
+      </p>
+      <a href="#work" class="hero-cta">View the work</a>
+    </div>
+
+    <!-- BIG SQUARE PLACEHOLDER, beside the name.
+         Once you have a transparent-background PNG, replace the line below with:
+         <img src="images/hero-portrait.png" alt="Sophia Cober" style="width:100%;height:100%;object-fit:contain;">
+         Using an <img> (not a CSS background) keeps the transparency intact. -->
+    <<div class="hero-portrait-frame">
+
+  <img src="images/hero-portrait.png" alt="Sophia Cober">
+
+</div>
+  </div>
 </section>
 
 <!-- MEANDER DIVIDER -->
@@ -760,43 +920,24 @@
       </div>
     </div>
 
-    <!-- CARD 1 -->
-    <div class="work-card gd" data-index="1">
-      <div class="work-card-img-placeholder">Add image — aegis-branding.jpg</div>
+    <!-- CARD 1 — renamed from "The Silly Goose Branding", now a brand slide deck -->
+    <div class="work-card gd" data-index="1" style="background-image:url('images/even-steven-01.jpg'); background-size:cover; background-position:center;">
       <div class="work-card-body">
-        <p class="work-card-cat">Graphic Design</p>
-        <p class="work-card-title">Aegis Branding</p>
+        <p class="work-card-cat">Graphic Design · Brand Deck</p>
+        <p class="work-card-title">Even Steven — Tea Company Branding</p>
       </div>
     </div>
 
     <!-- CARD 2 -->
-    <div class="work-card gd" data-index="2">
-      <div class="work-card-img-placeholder">Add image — goose-branding.jpg</div>
-      <div class="work-card-body">
-        <p class="work-card-cat">Graphic Design</p>
-        <p class="work-card-title">The Silly Goose Branding</p>
-      </div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="work-card gd" data-index="3">
-      <div class="work-card-img-placeholder">Add image — rainbow-tshirts.jpg</div>
-      <div class="work-card-body">
-        <p class="work-card-cat">Graphic Design</p>
-        <p class="work-card-title">Rainbow T-Shirt Series</p>
-      </div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="work-card gd" data-index="4" style="background-image:url('images/magazine-01.jpg'); background-size:cover; background-position:center;">
+    <div class="work-card gd" data-index="2" style="background-image:url('images/magazine-01.jpg'); background-size:cover; background-position:center;">
       <div class="work-card-body">
         <p class="work-card-cat">Graphic Design</p>
         <p class="work-card-title">Illumination Magazine Spread</p>
       </div>
     </div>
 
-    <!-- CARD 5 -->
-    <div class="work-card gd" data-index="5"
+    <!-- CARD 3 -->
+    <div class="work-card gd" data-index="3"
       style="background-image:url('images/dr-martens-icons-01.jpg'); background-size:cover; background-position:center;">
       <div class="work-card-body">
         <p class="work-card-cat">Graphic Design</p>
@@ -804,59 +945,147 @@
       </div>
     </div>
 
-    <!-- CARD 6 — NEW -->
-    <div class="work-card gd" data-index="6">
-      <div class="work-card-img-placeholder">Add image — labours-of-heracles.jpg</div>
+    <!-- CARD 4 — NEW: inspiration poster series -->
+    <div class="work-card gd" data-index="4" style="background-image:url('images/inspiration-poster-01.jpg'); background-size:cover; background-position:center;">
       <div class="work-card-body">
-        <p class="work-card-cat">Graphic Design</p>
-        <p class="work-card-title">Labours of Heracles Graphics</p>
+        <p class="work-card-cat">Graphic Design · Poster Series</p>
+        <p class="work-card-title">Inspiration Posters</p>
       </div>
     </div>
 
-    <!-- CARD 7 -->
-    <div class="work-card photo" data-index="7" style="background-image:url('images/rugby-lineout.jpg'); background-size:cover; background-position:center;">
+    <!-- CARD 5 -->
+    <div class="work-card photo" data-index="5" style="background-image:url('images/rugby-lineout.jpg'); background-size:cover; background-position:center;">
       <div class="work-card-body">
         <p class="work-card-cat">Photography</p>
         <p class="work-card-title">Sports Photography</p>
       </div>
     </div>
 
-    <!-- CARD 8 — renamed from Chandelier -->
-    <div class="work-card photo" data-index="8">
-      <div class="work-card-img-placeholder">Add image — illumination.jpg</div>
+    <!-- CARD 6 — NEW: Environment photography -->
+    <div class="work-card photo" data-index="6" style="background-image:url('images/environment-04.jpg'); background-size:cover; background-position:center;">
       <div class="work-card-body">
         <p class="work-card-cat">Photography</p>
-        <p class="work-card-title">Photography</p>
+        <p class="work-card-title">Environment</p>
+      </div>
+    </div>
+
+    <!-- CARD 7 — NEW: Lights photography -->
+    <div class="work-card photo" data-index="7" style="background-image:url('images/lights-05.jpg'); background-size:cover; background-position:center;">
+      <div class="work-card-body">
+        <p class="work-card-cat">Photography</p>
+        <p class="work-card-title">Lights</p>
+      </div>
+    </div>
+
+    <!-- CARD 8 — NEW: People photography -->
+    <div class="work-card photo" data-index="8" style="background-image:url('images/people-02.jpg'); background-size:cover; background-position:center;">
+      <div class="work-card-body">
+        <p class="work-card-cat">Photography</p>
+        <p class="work-card-title">People</p>
       </div>
     </div>
 
     <!-- CARD 9 -->
-    <div class="work-card video" data-index="9" style="background-image:url('videos/friday-night-lights.mp4'); background-size:cover; background-position:center;">
-      <div class="work-card-body">
-        <p class="work-card-cat">Video</p>
-        <p class="work-card-title">Friday Night Lights Recap</p>
-      </div>
-    </div>
+    <div
 
-    <!-- CARD 10 -->
-    <div class="work-card video" data-index="10" style="background-image:url('videos/video-promotion.mp4'); background-size:cover; background-position:center;">
-      <div class="work-card-body">
-        <p class="work-card-cat">Video</p>
-        <p class="work-card-title">School Athletics Promotion</p>
-      </div>
-    </div>
+  class="work-card video"
 
-    <!-- CARD 11 — NEW -->
-    <div class="work-card video" data-index="11">
-      <div class="work-card-img-placeholder">Add image — horror-trailer.jpg</div>
-      <div class="work-card-body">
-        <p class="work-card-cat">Video</p>
-        <p class="work-card-title">Not Alone Trailer</p>
-      </div>
-    </div>
+  data-index="9"
+
+  style="
+
+    background-image: url('images/friday-night-lights-thumbnail.jpg');
+
+    background-size: cover;
+
+    background-position: center;
+
+  "
+
+>
+
+  <div class="work-card-body">
+
+    <p class="work-card-cat">Video</p>
+
+    <p class="work-card-title">Friday Night Lights Recap</p>
 
   </div>
+
+</div>
+
+    <!-- CARD 10 -->
+   <div
+
+  class="work-card video"
+
+  data-index="10"
+
+  style="
+
+    background-image: url('images/video-promotion-thumbnail.jpg');
+
+    background-size: cover;
+
+    background-position: center;
+
+  "
+
+>
+
+  <div class="work-card-body">
+
+    <p class="work-card-cat">Video</p>
+
+    <p class="work-card-title">School Athletics Promotion</p>
+
+  </div>
+
+</div>
+
+    <!-- CARD 11 — NEW -->
+<div
+
+  class="work-card video"
+
+  data-index="11"
+
+  style="
+
+    background-image: url('images/not-alone-thumbnail.jpg');
+
+    background-size: cover;
+
+    background-position: center;
+
+  "
+
+>
+
+  <div class="work-card-body">
+
+    <p class="work-card-cat">Video</p>
+
+    <p class="work-card-title">Not Alone Trailer</p>
+
+  </div>
+
+</div>
 </section>
+
+<!-- MEANDER DIVIDER -->
+<div class="meander" aria-hidden="true">
+  <svg width="100%" height="16" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <pattern id="meander3" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse">
+        <path d="M0,8 L4,8 L4,4 L12,4 L12,12 L20,12 L20,4 L28,4 L28,8 L32,8 L32,4 L40,4"
+              fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="16" fill="url(#meander3)"/>
+  </svg>
+</div>
+
 
 <!-- MEANDER DIVIDER -->
 <div class="meander" aria-hidden="true">
@@ -880,25 +1109,33 @@
   </div>
 
   <div class="about-inner">
-    <div class="about-image-frame">
-      <!-- Replace this div content with: <img src="images/portrait.jpg" alt="Sophia Cober" style="width:100%;height:100%;object-fit:cover;"> -->
-      <span style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--text-muted);">Your portrait here</span>
-    </div>
+  <div class="about-image-frame">
+
+  <img
+
+    src="images/portrait.jpg"
+
+    alt="Portrait of Sophia Cober"
+
+    class="about-image"
+
+  >
+
+</div>
 
     <div class="about-text">
       <h3>The Designer</h3>
       <p>
-        <strong>Sophia Cober</strong> is a second-year Global Business and Digital Arts student 
-        at the University of Waterloo, working to communicate stories and values through design 
-        content creation.
-      </p>
-      <p>
-        <!-- Write your own bio here — keep it personal and specific to you -->
-        A lot of my work draws from my passions of athletics, social values and ancient civilizations.
-      </p>
-      <p>
-        Currently open to internships, freelance projects, and creative collaborations.
-      </p>
+  <strong>Sophia Cober</strong> is a Global Business and Digital Arts student at the University of Waterloo with a passion for visual storytelling. Working across graphic design, photography, and video, she enjoys creating work that is both purposeful and visually engaging.
+</p>
+
+<p>
+  Her fascination with ancient civilizations has shaped much of her creative perspective, inspiring the use of symbolism, typography, and historical references throughout her work. Outside of design, much of her photography and filmmaking centres around athletics, community, and the people who inspire her, reflecting her belief that the strongest creative work begins with genuine human connection.
+</p>
+
+<p>
+  Sophia is always looking for opportunities to learn, collaborate, and challenge herself through meaningful creative projects, with the goal of designing work that communicates ideas, tells stories, and leaves a lasting impression.
+</p>
 
       <div class="skills-list">
         <span class="skill-tag">Graphic Design</span>
@@ -927,7 +1164,7 @@
     </p>
 
     <!-- Replace with your actual email -->
-    <a href="mailto:bobiacobra@gmail.com" class="contact-email">bobiacobra@gmail.com</a>
+    <a href="mailto:bobiacobra@gmail.com" class="contact-email">sophia.cober@gmail.com</a>
 
     <ul class="social-links">
       <li><a href="https://instagram.com/sophiacober.designs">Instagram</a></li>
@@ -975,7 +1212,7 @@
     { // 0
       title: "Everyone Has a Part to Play",
       cat: "Graphic Design · Poster Series",
-      desc: "A five-poster series exploring community in a school grades K-12 — each poster represents one school ending with the whole campus as one. The colour is on brand with the school's chosen palette, and this piece was published and put up in the Alumni Way Hallway at Hillfield Strathallan College.",
+      desc: "A five-poster series exploring community across a K–12 school, with each poster representing one grade division before culminating in a final poster of the whole campus as one. The palette stays true to the school's brand colours, and the series was published and installed permanently in the Alumni Way Hallway at Hillfield Strathallan College.",
       media: [
         { type: "image", src: "images/poster-01.jpg", ratio: "5217/8000" },
         { type: "image", src: "images/poster-02.jpg", ratio: "5217/8000" },
@@ -984,27 +1221,23 @@
         { type: "image", src: "images/poster-05.jpg", ratio: "5217/8000" }
       ]
     },
-    { // 1
-      title: "Aegis Branding",
-      cat: "Graphic Design",
+    { // 1 — renamed from Goose Branding; presented as a slide-deck (arrow through the brand deck slides)
+      title: "Even Steven — Tea Company Branding",
+      cat: "Graphic Design · Brand Deck",
+      desc: "A fair-trade, all-natural tea brand built around Even Steven, a goose spotted often around campus who was always kind but a little shy and wary. That contrast, warm but guarded, shapes the whole system: an organic wordmark, a simplified goose mark, a botanical pattern, and packaging mockups across a tea tin, teabag tag, and pouch label.",
+      // TODO: replace with your actual deck slide filenames, in order (cover, palette, wordmark, logo, pattern, mockups, etc.)
       media: [
-        { type: "image", src: "images/aegis-01.jpg" },
-        { type: "image", src: "images/aegis-02.jpg" }
+        { type: "image", src: "images/even-steven-01.jpg" },
+        { type: "image", src: "images/even-steven-02.jpg" },
+        { type: "image", src: "images/even-steven-03.jpg" },
+        { type: "image", src: "images/even-steven-04.jpg" },
+        { type: "image", src: "images/even-steven-05.jpg" }
       ]
     },
     { // 2
-      title: "Goose Branding",
+      title: "Illumination Magazine Spread",
       cat: "Graphic Design",
-      media: [ { type: "image", src: "images/goose-branding-01.jpg" } ]
-    },
-    { // 3
-      title: "Rainbow T-Shirt Series",
-      cat: "Graphic Design",
-      media: [ { type: "image", src: "images/rainbow-tshirts-01.jpg" } ]
-    },
-    { // 4
-      title: "Magazine Spread",
-      cat: "Graphic Design",
+      desc: "Created as my end-of-year project during first year, Illumination reflects my personal and creative journey. Light is used as a symbol of growth, leadership, and my desire to help guide and support others. The hieroglyph-inspired elements connect to my long-standing interest in ancient civilizations. Inspired by the commemorative purpose of Egyptian cartouches, I used these forms to honour and preserve the names and identities of people who are important to me.",
       media: [ { type: "image", src: "images/magazine-01.jpg" }, 
         { type: "image", src: "images/magazine-02.jpg" },
         { type: "image", src: "images/magazine-03.jpg" },
@@ -1015,23 +1248,29 @@
         { type: "image", src: "images/magazine-08.jpg" }
       ]
     },
-    { // 5
+    { // 3
       title: "Dr. Martens Icon Set",
       cat: "Graphic Design",
-      desc: "An icon set meant to be recongnizable as the shoe brand Dr. Martens (School project Not affiliated). The colours were to evoke the boldness of the company and each position of the shoe was meant to capture the personality of the shoe. Each shoe was drawn from a real one in my personal collection and the numebrs are the model numbers used in the store.",
+      desc: "An icon set designed to be immediately recognizable as Dr. Martens (a personal/school project, not affiliated with or endorsed by the brand). The bold colour choices echo the brand's identity, and each boot's pose was chosen to capture its individual personality. Every icon was illustrated from a real pair in my own collection, and the numbers reference the actual model numbers used in-store.",
       media: [ { type: "image", src: "images/dr-martens-icons-01.jpg" }, 
         { type: "image", src: "images/dr-martens-icons-02.jpg" },
         {type: "image", src: "images/dr-martens-icons-03.jpg" }  
       ]
     },
-    { // 6
-      title: "Labours of Heracles Stickers",
-      cat: "Graphic Design",
-      media: [ { type: "image", src: "images/heracles-stickers-01.jpg" } ]
+    { // 4 — NEW
+      title: "Inspiration Posters",
+      cat: "Graphic Design · Poster Series",
+      desc: "A series of three chill, laid-back wall posters made purely for the love of the craft, each pairing a photograph with a short quote and a bold type treatment.",
+      media: [
+        { type: "image", src: "images/inspiration-poster-01.jpg" },
+        { type: "image", src: "images/inspiration-poster-02.jpg" },
+        { type: "image", src: "images/inspiration-poster-03.jpg" }
+      ]
     },
-    { // 7
+    { // 5
       title: "Sports Photography",
       cat: "Photography",
+      desc: "Photographing the Hamilton Hornets and the University of Waterloo rugby teams for teammates, families, and media use. Shot and edited using a DSLR camera, these images focus on capturing the speed, physicality, and emotion of the game, highlighting both the intensity of competition and the beauty found within the sport.",
       media: [
         { type: "image", src: "images/rugby-wide-action.jpg", ratio: "5286/3610" },
         { type: "image", src: "images/rugby-lineout.jpg", ratio: "3387/4684" },
@@ -1044,26 +1283,62 @@
         { type: "image", src: "images/rugby-scrum.jpg", ratio: "4149/2358" },
       ]
     },
-    { // 8
-      title: "Illumination",
+    { // 6 — NEW, 6 images (add a 7th here later if you want the extra environment shot)
+      title: "Environment",
       cat: "Photography",
-      media: [ { type: "image", src: "images/illumination-01.jpg" } ]
+      desc: "A collection exploring the relationship between light, architecture, and the natural world. Each image focuses on composition, atmosphere, and the quiet moments that often go unnoticed, encouraging viewers to appreciate the environments they move through every day.",
+      media: [
+        { type: "image", src: "images/environment-01.jpg" },
+        { type: "image", src: "images/environment-02.jpg" },
+        { type: "image", src: "images/environment-03.jpg" },
+        { type: "image", src: "images/environment-04.jpg" },
+        { type: "image", src: "images/environment-05.jpg" },
+        { type: "image", src: "images/environment-06.jpg" }
+      ]
+    },
+    { // 7 — NEW, 6 images
+      title: "Lights",
+      cat: "Photography",
+      desc: "An exploration of light as both a technical and emotional element in photography. Using reflections, contrast, and colour, these images experiment with how light can shape mood, guide the viewer's eye, and transform everyday scenes.",
+      media: [
+        { type: "image", src: "images/lights-01.jpg" },
+        { type: "image", src: "images/lights-02.jpg" },
+        { type: "image", src: "images/lights-03.jpg" },
+        { type: "image", src: "images/lights-04.jpg" },
+        { type: "image", src: "images/lights-05.jpg" },
+        { type: "image", src: "images/lights-06.jpg" }
+      ]
+    },
+    { // 8 — NEW, 7 images
+      title: "People",
+      cat: "Photography",
+      desc: "A mix of posed portraits, candid moments, and conceptual shots — deliberate portrait work sitting alongside the in-between, unposed moments that show range.",
+      media: [
+        { type: "image", src: "images/people-01.jpg" },
+        { type: "image", src: "images/people-03.jpg" },
+        { type: "image", src: "images/people-04.jpg" },
+        { type: "image", src: "images/people-05.jpg" },
+        { type: "image", src: "images/people-02.jpg" },
+        { type: "image", src: "images/people-06.jpg" },
+        { type: "image", src: "images/people-07.jpg" }
+      ]
     },
     { // 9
       title: "Friday Night Lights",
       cat: "Video",
-      desc: "The event was a student versus staff soccer game at my highschool where I recorded and fit together interviews and photos taken by the communcations staff to create a memerable recapturing of the event. I wanted the recap to show the spirit and community our school strives to create. It was later posted to the schools pubnlic instagram.",
+      desc: "Filmed at a student-versus-staff soccer game at my high school, this recap weaves together my own footage with interviews and photos from the communications team to capture the event's energy. The goal was to reflect the spirit and community our school strives to create, and it was later posted to the school's public Instagram.",
       media: [ { type: "video", src: "videos/friday-night-lights.mp4" } ]
     },
     { // 10
       title: "Video Promotion",
       cat: "Video",
-      desc: "This video promotes the athletics program at Hillfield Strathallan College highlighting the pride those who praticipate carry. This was an independent project from start to finish used for internal advertising in the school itself. Tool used to edit were Premiere Pro.",
+      desc: "An independent video promoting the athletics program at Hillfield Strathallan College, highlighting the pride participants carry for their teams. Shot, directed, and edited start to finish for internal advertising within the school, using Adobe Premiere Pro.",
       media: [ { type: "video", src: "videos/video-promotion.mp4" } ]
     },
     { // 11
-      title: "Horror Trailer",
+      title: "Not Alone Trailer",
       cat: "Video",
+      desc: "Created as a school project that challenged us to reimagine an existing film in a completely different genre, this trailer transforms Home Alone into a psychological horror. I acted, filmed, edited, and designed the soundscape in its entirety, using pacing, lighting, and audio to create tension while paying homage to the original film. Even iconic moments, such as the line 'Keep the change, ya filthy animal,' were reimagined with a darker context to reinforce the horror atmosphere. Music includes 'Rockin' Around the Christmas Tree,' written by Johnny Marks and originally recorded by Brenda Lee.",
       media: [ { type: "video", src: "videos/horror-trailer.mp4" } ]
     }
   ];
