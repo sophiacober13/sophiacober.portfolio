@@ -666,6 +666,119 @@
     font-style: italic;
     color: var(--text);
   }
+ 
+/* EVEN STEVEN CASE STUDY */
+#even-steven-case-study {
+
+  scroll-margin-top: 80px;
+
+}
+.brand-case-study {
+  background: var(--black);
+  padding: 7rem 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.brand-case-study-inner {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.75fr);
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.brand-case-study-visual {
+  width: 100%;
+}
+
+.brand-case-study-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+}
+
+.brand-case-study-info {
+  position: sticky;
+  top: 110px;
+  padding-top: 1rem;
+}
+
+.brand-case-study-label {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.brand-case-study-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.brand-case-study-subtitle {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--gold-light);
+  margin-bottom: 2rem;
+}
+
+.brand-case-study-info p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+}
+
+.brand-case-study-info strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.brand-case-study-role {
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.brand-case-study-role h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.brand-case-study-role p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .brand-case-study {
+    padding: 5rem 1.5rem;
+  }
+
+  .brand-case-study-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .brand-case-study-info {
+    position: static;
+    order: -1;
+    padding-top: 0;
+  }
+}
 
   /* ABOUT */
   #about { background: var(--black); }
@@ -920,13 +1033,22 @@
       </div>
     </div>
 
-    <!-- CARD 1 — renamed from "The Silly Goose Branding", now a brand slide deck -->
-    <div class="work-card gd" data-index="1" style="background-image:url('images/even-steven-01.jpg'); background-size:cover; background-position:center;">
-      <div class="work-card-body">
-        <p class="work-card-cat">Graphic Design · Brand Deck</p>
-        <p class="work-card-title">Even Steven — Tea Company Branding</p>
-      </div>
-    </div>
+    <!-- CARD 1 — EVEN STEVEN -->
+<a
+  class="work-card gd"
+  href="#even-steven-case-study"
+  style="
+    background-image: url('images/even-steven-01.jpg');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+  "
+>
+  <div class="work-card-body">
+    <p class="work-card-cat">Graphic Design · Branding</p>
+    <p class="work-card-title">Even Steven — Tea Company Branding</p>
+  </div>
+</a>
 
     <!-- CARD 2 -->
     <div class="work-card gd" data-index="2" style="background-image:url('images/magazine-01.jpg'); background-size:cover; background-position:center;">
@@ -1071,6 +1193,60 @@
   </div>
 
 </div>
+
+</div>
+
+</section>
+<!-- EVEN STEVEN BRAND CASE STUDY -->
+<section class="brand-case-study" id="even-steven-case-study">
+  <div class="brand-case-study-inner">
+
+    <div class="brand-case-study-visual">
+      <img
+        src="images/even-steven-case-study.jpg"
+        alt="Even Steven tea company mini branding case study showing the logo, colour palette, typography, illustration system, mug mockup and playing-card designs"
+      >
+    </div>
+
+    <aside class="brand-case-study-info">
+      <p class="brand-case-study-label">Mini Branding Case Study</p>
+
+      <h2 class="brand-case-study-title">Even Steven</h2>
+
+      <p class="brand-case-study-subtitle">
+        A balanced and playful identity for a Canadian tea company.
+      </p>
+
+      <p>
+        Even Steven is a Canadian tea brand inspired by balance, nature and
+        everyday rituals. The concept began with a goose frequently seen around
+        the University of Waterloo campus whose warm but cautious personality
+        became the foundation of the brand.
+      </p>
+
+      <p>
+        The visual identity combines a custom goose character, organic
+        illustrations, soft natural colours and expressive typography. Together,
+        these elements create a brand that feels calm, approachable and distinctly
+        Canadian.
+      </p>
+
+      <p>
+        The identity was applied across a logo system, repeating pattern,
+        drinkware and illustrated playing cards to demonstrate how the visual
+        language could remain recognizable across different formats.
+      </p>
+
+      <div class="brand-case-study-role">
+        <h4>My Role</h4>
+        <p>
+          Brand concept · Logo design · Illustration · Pattern design ·
+          Art direction · Mockup creation
+        </p>
+      </div>
+    </aside>
+
+  </div>
 </section>
 
 <!-- MEANDER DIVIDER -->
@@ -1222,16 +1398,14 @@
       ]
     },
     { // 1 — renamed from Goose Branding; presented as a slide-deck (arrow through the brand deck slides)
-      title: "Even Steven — Tea Company Branding",
+      title: "Even Steven — Tea Company Mini Branding Case Study",
       cat: "Graphic Design · Brand Deck",
       desc: "A fair-trade, all-natural tea brand built around Even Steven, a goose spotted often around campus who was always kind but a little shy and wary. That contrast, warm but guarded, shapes the whole system: an organic wordmark, a simplified goose mark, a botanical pattern, and packaging mockups across a tea tin, teabag tag, and pouch label.",
       // TODO: replace with your actual deck slide filenames, in order (cover, palette, wordmark, logo, pattern, mockups, etc.)
       media: [
         { type: "image", src: "images/even-steven-01.jpg" },
-        { type: "image", src: "images/even-steven-02.jpg" },
-        { type: "image", src: "images/even-steven-03.jpg" },
-        { type: "image", src: "images/even-steven-04.jpg" },
-        { type: "image", src: "images/even-steven-05.jpg" }
+        { type: "image", src: "images/even-steven-case-study.jpg"}
+        
       ]
     },
     { // 2
@@ -1431,9 +1605,11 @@
     renderMedia();
   }
 
-  document.querySelectorAll('.work-card').forEach(card => {
-    card.addEventListener('click', () => openLightbox(parseInt(card.dataset.index, 10)));
+  document.querySelectorAll('.work-card[data-index]').forEach(card => {
+  card.addEventListener('click', () => {
+    openLightbox(parseInt(card.dataset.index, 10));
   });
+});
 
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextMedia(); });
